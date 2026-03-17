@@ -615,8 +615,40 @@ img { max-width: 100%; display: block; object-fit: cover; }
    8. MEDIA QUERIES
    ========================================= */
 /* =========================================
-   8. MEDIA QUERIES & MOBILE
+   8. MEDIA QUERIES & MOBILE OPTIMIZATIONS
    ========================================= */
+
+@media (max-width: 768px) {
+  /* Hapus backdrop-filter (blur kaca) yang sangat berat di mobile */
+  .navbar.scrolled {
+    background: rgba(3, 5, 10, 0.95);
+    backdrop-filter: none;
+  }
+  
+  .bgm-toggle {
+    backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.85);
+  }
+
+  .tilt-card {
+    backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.9);
+    /* Matikan rendering 3D pada mobile */
+    transform-style: flat;
+    transition: none;
+  }
+  
+  .card-img-wrap,
+  .card-name,
+  .card-role {
+    transform: none !important;
+  }
+  
+  /* Hilangkan glow raksasa / rendering layer berat */
+  .hero-glow {
+    display: none;
+  }
+}
 
 /* Hamburger Menu Toggle */
 .hamburger {
