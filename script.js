@@ -301,8 +301,10 @@ function initMagicCanvas() {
         }
     }
 
-    // Buat 60 partikel
-    for (let i = 0; i < 60; i++) particles.push(new Particle());
+    // Buat partikel. Kurangi drastis jumlah partikel jika di mobile untuk menghemat CPU.
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 15 : 60;
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
@@ -454,9 +456,12 @@ function initSwiper3D() {
 // 7. VANILLA TILT (KARU STRUKTUR KELAS 3D)
 // ==========================================
 if (typeof VanillaTilt !== 'undefined') {
-    VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
-        max: 15, speed: 400, glare: true, "max-glare": 0.3, scale: 1.05 
-    });
+    // Disable Tilt on Mobile for extreme performance boost!
+    if (window.innerWidth > 768) {
+        VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+            max: 15, speed: 400, glare: true, "max-glare": 0.3, scale: 1.05 
+        });
+    }
 }
 
 // ==========================================
@@ -609,18 +614,25 @@ function initTextSplitAnimation() {
             header.appendChild(span);
         });
 
-        // GSAP Reveal
+        // GSAP Reveal with mobile fallback (no blur)
+        const isMobile = window.innerWidth <= 768;
+        
         gsap.to(header.querySelectorAll('span'), {
             scrollTrigger: {
                 trigger: header,
                 start: "top 90%",
             },
             opacity: 1,
-            filter: 'blur(0px)',
+            filter: isMobile ? 'none' : 'blur(0px)', // Remove blur interpolation on mobile
             y: 0,
             duration: 0.8,
             stagger: 0.05,
-            ease: "back.out(1.7)"
+            ease: "back.out(1.7)",
+            onComplete: () => {
+                if(isMobile) {
+                    header.querySelectorAll('span').forEach(s => s.style.filter = 'none');
+                }
+            }
         });
     });
 }
