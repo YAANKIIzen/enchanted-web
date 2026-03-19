@@ -313,6 +313,47 @@ img { max-width: 100%; display: block; object-fit: cover; }
 }
 
 /* =========================================
+   4.5 IG FLOATING BUTTON
+   ========================================= */
+.ig-floating {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  color: white;
+  cursor: pointer;
+  z-index: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  text-decoration: none;
+}
+
+.ig-floating:hover {
+  transform: scale(1.15) rotate(10deg);
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-color: transparent;
+  box-shadow: 0 0 30px rgba(220, 39, 67, 0.6);
+  color: white;
+}
+
+.ig-floating i {
+  animation: logo-pulse 2s ease-in-out infinite;
+}
+
+.ig-floating:hover i {
+  animation: none;
+}
+
+/* =========================================
    5. HERO SECTION
    ========================================= */
 .hero {
@@ -625,9 +666,17 @@ img { max-width: 100%; display: block; object-fit: cover; }
     backdrop-filter: none;
   }
   
-  .bgm-toggle {
+  .bgm-toggle, .ig-floating {
     backdrop-filter: none;
     background: rgba(15, 23, 42, 0.85);
+  }
+
+  .ig-floating {
+    bottom: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
 
   .tilt-card {
